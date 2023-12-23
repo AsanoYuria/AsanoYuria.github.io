@@ -2,31 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>File Converter</title>
+    <title>Map Visualization from Excel</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+    <style>
+        #map { height: 400px; }
+    </style>
 </head>
 <body>
     <input type="file" id="fileInput" />
-    <button onclick="convertFile()">CSV</button>
-    <button onclick="convertFileToJson()">JSON</button>
-    <a id="downloadLink" style="display: none;">download file</a>
+    <button onclick="convertAndPlot()">Convert and Plot</button>
+    <div id="map"></div>
 
     <script>
-        function convertFile() {
-            var fileInput = document.getElementById('fileInput');
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var data = new Uint8Array(e.target.result);
-                var workbook = XLSX.read(data, {type: 'array'});
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-                var csv = XLSX.utils.sheet_to_csv(worksheet);
-                downloadFile(csv, 'converted.csv', 'text/csv');
-            };
-            reader.readAsArrayBuffer(fileInput.files[0]);
-        }
+        var map = L.map('map').setView([0, 0], 2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
-        function convertFileToJson() {
+        function convertAndPlot() {
             var fileInput = document.getElementById('fileInput');
             var reader = new FileReader();
             reader.onload = function(e) {
@@ -35,20 +31,39 @@
                 var firstSheetName = workbook.SheetNames[0];
                 var worksheet = workbook.Sheets[firstSheetName];
                 var json = XLSX.utils.sheet_to_json(worksheet, {header:1});
-                downloadFile(JSON.stringify(json), 'converted.json', 'application/json');
+                json.forEach(function(row) {
+                    geocodeAndPlot(row);
+                });
             };
             reader.readAsArrayBuffer(fileInput.files[0]);
         }
 
-        function downloadFile(content, fileName, contentType) {
-            var a = document.createElement("a");
-            var file = new Blob([content], {type: contentType});
-            a.href = URL.createObjectURL(file);
-            a.download = fileName;
-            a.style.display = 'block';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+        function geocodeAndPlot(row) {
+            var location = row[2];
+            var url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var latLng = [data[0].lat, data[0].lon];
+                        plotPoint(row, latLng);
+                    } else {
+                        console.error('Location not found:', location);
+                    }
+                })
+                .catch(error => {
+                    console.error('Geocoding error:', error);
+                });
+        }
+
+        function plotPoint(row, latLng) {
+            var name = row[0];
+            var cohort = row[1];
+            var other = row[3];
+
+            L.marker(latLng).addTo(map)
+                .bindPopup('<b>' + name + '</b><br>Cohort: ' + cohort + '<br>' + other);
         }
     </script>
 </body>
