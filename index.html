@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Map Visualization from Excel</title>
+    <title>Map Visualization from Excel with Clustering</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css" />
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
     <style>
         #map { height: 400px; }
@@ -21,6 +23,9 @@
             maxZoom: 19,
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
+
+        var markerCluster = L.markerClusterGroup(); 
+        var geocodeCache = {};
 
         function convertAndPlot() {
             var fileInput = document.getElementById('fileInput');
@@ -40,21 +45,25 @@
 
         function geocodeAndPlot(row) {
             var location = row[2];
-            var url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length > 0) {
-                        var latLng = [data[0].lat, data[0].lon];
-                        plotPoint(row, latLng);
-                    } else {
-                        console.error('Location not found:', location);
-                    }
-                })
-                .catch(error => {
-                    console.error('Geocoding error:', error);
-                });
+            if (geocodeCache[location]) {
+                plotPoint(row, geocodeCache[location]);
+            } else {
+                var url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            var latLng = [data[0].lat, data[0].lon];
+                            geocodeCache[location] = latLng;
+                            plotPoint(row, latLng);
+                        } else {
+                            console.error('Location not found:', location);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Geocoding error:', error);
+                    });
+            }
         }
 
         function plotPoint(row, latLng) {
@@ -62,9 +71,12 @@
             var cohort = row[1];
             var other = row[3];
 
-            L.marker(latLng).addTo(map)
+            var marker = L.marker(latLng)
                 .bindPopup('<b>' + name + '</b><br>Cohort: ' + cohort + '<br>' + other);
+            markerCluster.addLayer(marker);
         }
+
+        map.addLayer(markerCluster);
     </script>
 </body>
 </html>
