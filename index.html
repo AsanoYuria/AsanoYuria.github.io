@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件转换器</title>
+    <!-- 引入SheetJS库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+</head>
+<body>
+    <input type="file" id="fileInput" />
+    <button onclick="convertFile()">转换为CSV</button>
+    <button onclick="convertFileToJson()">转换为JSON</button>
+    <a id="downloadLink" style="display: none;">下载文件</a>
+
+    <script>
+        function convertFile() {
+            var fileInput = document.getElementById('fileInput');
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var data = new Uint8Array(e.target.result);
+                var workbook = XLSX.read(data, {type: 'array'});
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+                var csv = XLSX.utils.sheet_to_csv(worksheet);
+                downloadFile(csv, 'converted.csv', 'text/csv');
+            };
+            reader.readAsArrayBuffer(fileInput.files[0]);
+        }
+
+        function convertFileToJson() {
+            var fileInput = document.getElementById('fileInput');
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var data = new Uint8Array(e.target.result);
+                var workbook = XLSX.read(data, {type: 'array'});
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+                var json = XLSX.utils.sheet_to_json(worksheet, {header:1});
+                downloadFile(JSON.stringify(json), 'converted.json', 'application/json');
+            };
+            reader.readAsArrayBuffer(fileInput.files[0]);
+        }
+
+        function downloadFile(content, fileName, contentType) {
+            var a = document.createElement("a");
+            var file = new Blob([content], {type: contentType});
+            a.href = URL.createObjectURL(file);
+            a.download = fileName;
+            a.style.display = 'block';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>
