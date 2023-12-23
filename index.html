@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>文件转换器</title>
-    <!-- 引入SheetJS库 -->
+    <title>File Converter</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
 </head>
 <body>
     <input type="file" id="fileInput" />
-    <button onclick="convertFile()">转换为CSV</button>
-    <button onclick="convertFileToJson()">转换为JSON</button>
-    <a id="downloadLink" style="display: none;">下载文件</a>
+    <button onclick="convertFile()">CSV</button>
+    <button onclick="convertFileToJson()">JSON</button>
+    <a id="downloadLink" style="display: none;">download file</a>
 
     <script>
         function convertFile() {
