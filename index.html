@@ -1,15 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Map Visualization from Excel with Clustering</title>
+<meta charset="UTF-8">
+    <title>Custom Animated Markers</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css" />
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
     <style>
         #map { height: 400px; }
+
+        @keyframes pulsate {
+            0% { transform: scale(0.5, 0.5); opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { transform: scale(1.5, 1.5); opacity: 0; }
+        }
+        .pulsating-marker {
+            animation: pulsate 1s ease-out;
+            animation-iteration-count: infinite;
+            transform-origin: center;
+        }
     </style>
 </head>
 <body>
@@ -19,12 +26,12 @@
 
     <script>
         var map = L.map('map').setView([0, 0], 2);
-
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Map data &copy; <a href="https://www.esri.com/">Esri</a>'
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
         }).addTo(map);
-        
-        var markerCluster = L.markerClusterGroup(); 
+
+        var markerCluster = L.markerClusterGroup();
         var geocodeCache = {};
 
         function convertAndPlot() {
@@ -71,7 +78,14 @@
             var cohort = row[1];
             var other = row[3];
 
-            var marker = L.marker(latLng)
+            var customIcon = L.divIcon({
+                className: 'pulsating-marker',
+                html: '<div style="background-color:red;border-radius:50%;width:10px;height:10px;border:2px solid white;"></div>',
+                iconSize: [10, 10],
+                iconAnchor: [5, 5]
+            });
+
+            var marker = L.marker(latLng, { icon: customIcon })
                 .bindPopup('<b>' + name + '</b><br>Cohort: ' + cohort + '<br>' + other);
             markerCluster.addLayer(marker);
         }
