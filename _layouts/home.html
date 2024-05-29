@@ -1,0 +1,83 @@
+---
+layout: default
+---
+
+<header>
+{% if site.theme_config.show_navbar == true %}
+  {% include horizontal_list.html collection=site.data.home.navbar_entries %}
+  <div class="dashed"></div>
+{% endif %}
+
+  <div class="author-card">
+      <div class="avatar-image-container">
+        <img src="{{ site.avatar }}" alt="avatar" class="avatar-image" id="avatar" 
+             onmouseover="switchToImage2()" 
+             onmouseout="switchToImage1()" 
+             ontouchstart="switchToImage2()" 
+             ontouchend="switchToImage1()" />
+      </div>
+      <div class="author-card-right">
+        <h1>
+          {{ site.author }}
+        </h1>
+        {{ site.top_title }}
+      </div>
+    </div>
+
+    <script>
+      var image1 = "{{ site.avatar }}";
+      var image2 = "{{ site.avatar2 }}";
+
+      function switchToImage2() {
+          var img = document.getElementById("avatar");
+          img.src = image2;
+      }
+
+      function switchToImage1() {
+          var img = document.getElementById("avatar");
+          img.src = image1;
+      }
+    </script>
+
+
+  <h2>{{ site.title }}</h2>
+  {% if site.theme_config.show_description == true %}
+    <p>{{ site.description }}</p>
+  {% endif %}
+</header>
+
+{{ content }}
+
+{% if site.theme_config.show_projects == true %}
+  <h2>{{ site.theme_config.home.title_projects }}</h2>
+  {% include card_list.html collection=site.data.home.project_entries %}
+{% endif %}
+
+{% if site.theme_config.show_misc_list == true %}
+  <h2>{{ site.theme_config.home.title_misc_list }}</h2>
+  {% include vertical_list.html collection=site.data.home.misc_entries %}
+{% endif %}
+
+{% if site.theme_config.show_blog == true %}
+  <h2>{{ site.theme_config.home.title_blog }}</h2>
+  {% include post_list.html %}
+{% endif %}
+
+{% if site.theme_config.show_old_projects == true %}
+  <h2>{{ site.theme_config.home.title_old_projects }}</h2>
+  {% include card_list.html collection=site.data.home.old_project_entries %}
+{% endif %}
+
+{% if site.data.home.competition_entries %}
+  <h2>Leadership & Competition</h2>
+  {% include card_list.html collection=site.data.home.competition_entries %}
+{% endif %}
+
+
+
+{% if site.theme_config.show_footer == true %}
+  <footer>
+    <div class="dashed"></div>
+    {% include horizontal_list.html collection=site.data.home.footer_entries %}
+  </footer>
+{% endif %}
