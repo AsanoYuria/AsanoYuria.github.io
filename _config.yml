@@ -6,10 +6,10 @@ avatar: "/assets/images/index/me.jpg" # relative path to first avatar
 avatar2: "/assets/images/index/me2.jpg" # relative path to second avatar
 top_title: >
     Undergraduate Student in the Chinese University of Hong Kong </br>
-    Research Interests: Machine Learning, Music Generation </br>
+    Research Interests: Machine Learning, Computer Vision </br>
 description: > # description of the site (multiple lines allowed)
     Greetings! I am currently a third-year undergraduate student in the Faculty of Engineering at The Chinese University of Hong Kong. 
-    My research interests lie at the computer vision, natural language processing, and music generation.
+    My research interests lie at the machine learning, computer vision, and natural language processing.
 permalink: /:slug
 
 favicon: "./logo.png" # relative path to site's favicon
