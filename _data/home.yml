@@ -1,0 +1,143 @@
+# 顶部导航栏菜单配置
+navbar_entries:
+  - title: about
+    url: about
+
+#  - title: project
+#    url: blog
+
+  - title: github
+    url: https://github.com/ShinoKana
+
+# 项目数据
+project_entries:
+
+#  - title: VBHOI - Multi-Domain Asynchronous Federated Learning for Visual Background Human Object Interaction
+#    url: /vbhoi
+#    desc:  A project on multi-domain asynchronous federated learning for virtual background human object interaction, focusing on developing an algorithm that identifies consensus features for better model fusion.
+    
+  - title: Investigating Cultural Bias in Multilingual Pretrained Language Models
+    url: /llm
+    desc: This project focuses on investigating cultural bias in ChatGPT responses by designing a dataset with questions and answers from various cultures and languages.
+    highlight: NEW
+    
+  - title: VBMH - Virtual Background Matting for Multi-Human Video Conferencing with Privacy Preservation
+    url: /vbmh
+    desc: A deep learning-based solution focused on virtual background matting in multi-human video conferencing scenarios, emphasizing privacy preservation and attention mechanisms.
+
+  - title: Radio Modulation Classification Using Machine Learning and Deep Learning Techniques
+    url: /rmc
+    desc: A project focused on radio modulation classification using machine learning and deep learning techniques, specifically CNN, to verify the identity of transmitters and enhance authorization systems in wireless communications.
+
+#  - title: more works to be done
+#    url: /future
+
+#    highlight: WIP
+
+# paper数据
+old_project_entries:
+  - title: Reinforcement Learning in Pacman Game Development with Pygame
+    url: https://github.com/ShinoKana/AIST1110_Project
+    desc: AIST1110_Project is a Pacman game built with Pygame, featuring Reinforcement Learning, multiple maze layouts, and a training mode for an AI agent.
+#    highlight: NEW
+
+  - title: An Information Theory-based Wordle Solver with Interactive Demo and Bot
+    url: https://github.com/dmddjack/ESTR2018_Project
+    desc: ESTR2018_Project is a Wordle solver based on information theory, with an interactive notebook, a Wordle bot, and support for the game's "Hard Mode."
+
+  - title: Audio Signal Analysis and Simulation using Discrete Fourier Transform and Fast Fourier Transform
+    url: https://github.com/dmddjack/ESTR1005_Project
+    desc: ESTR1005_Project explores DFT and FFT applications in audio analytics, including signal simulation in Scilab, and mapping frequencies to piano keys.
+
+    
+# 比赛经历数据
+competition_entries:
+  - title: Goldman Sachs APAC Women's Trader Academy
+    url: /gs
+    desc: Engaged in an intensive training program aimed at understanding the role of being a trader at GS, and gained trading skills through vendor-led training and market-making.
+    highlight: NEW
+    
+  - title: 2022 WQBRAIN Global Alphathon
+    url: /wq
+    desc: Achieved the gold medal in the individual competition, and the team ranked 2nd in the Asia-Pacific region and 19th worldwide.
+
+  - title: 2022 BAIN Case Competition
+    url: /bain
+    desc: Proposed brand expansion plans for Heytea Bottle, and used think-cell to integrate team members' opinions and complete the PowerPoint.
+
+  - title: 2022 L'Oréal BRANDSTORM
+    url: /brandstorm
+    desc: Designed beauty products based on plasma technology for the tech track, and was responsible for product development, market evaluation, and PowerPoint revision.
+
+
+
+# 网站底部菜单
+footer_entries:
+  - title: homepage
+    url: /
+
+  - title: github
+    url: https://github.com/ShinoKana
+
+  - title: feed
+    url: feed.xml
+
+# misc列表模块
+misc_entries:
+#  - title: this is an example vertical list
+#    url: false
+#
+#  - title: you can show or hide using a boolean flag in _config.yml
+#    url: false
+#
+#  - title: and you can add data in _data/home.yml
+#    url: false
+
+#  - title: Blog posts
+#    post_list: true
+#    url: false
+
+  - title: Jialin Qi, Zheng Zhang, Xiwang Dong, Jianglong Yu, Qingdong Li, Hong Jiang, Zhang Ren,”Time-varying formation tracking control for multi-agent systems using distributed multi-sensor multi-target filtering”
+    url: false
+#    entries:
+#      - title: Time-varying formation tracking control problems for multi-agent systems using distributed multi-sensor multi-target filtering are investigated. In order to obtain the accurate state estimations of targets, a distributed multi-sensor multi-target filtering algorithm based on the cubature Kalman filter scheme and multiple heterogeneous sensors is proposed. Then, the state estimations obtained by the filtering algorithm are used to design a time-varying formation tracking protocol for multi-agent systems, enabling these systems to form a time-varying formation and track the convex combination of multiple targets. The estimation errors of filtering algorithm are proved to be bounded by introducing a stochastic process and the boundedness of the formation tracking errors is further proved by using the properties of the Laplacian matrix. Finally, the effectiveness of the proposed algorithm is illustrated by simulation experiments.
+#        url: false
+
+  - title: Jialin Qi, Zheng Zhang, Jin Dong, Jiang Hong, Xiwang Dong, Jianglong Yu, Zhang Ren, ”Event-Triggered Distributed Multisensor Multitarget Tracking with GM-PHD Filter”， International Conference on Guidance, Navigation and Control
+    url: false
+#    entries:
+#      - title: This paper focuses on a distributed event-triggered Gaussian mixture probability hypothesis density (GM-PHD) filtering algorithm. With this algorithm, sensors transmit their Gaussian components to their neighbors  basing on the event-triggering conditions, and finally perform certain times fusion by matrix reformulation. The existence of the upper bound of the filtering error covariance is proved and the upper bound can be minimized by designing the filtering parameter at each time instant properly. This algorithm can reduce data transmission and energy consumption significantly without compromising the expected estimation performance. Simulation experiment evaluates the performance of the proposed algorithm.
+#        url: false
+
+  - title: Jialin Qi, Zheng Zhang, Xiwang Dong, Jianglong Yu, Qingdong Li, Hong Jiang, Zhang Ren, ”Time-varying formation tracking with distributed multi-sensor multi-target filtering”（Under review），The 2023 INT´L Conference on Unmanned Aircaraft Systems
+    url: false
+#    entries:
+#      - title: Formation tracking is used widely in targets enclosing, monitoring and striking, however, in practical scenes, the targets are always uncooperative. In this paper, the problem of time-varying formation tracking for multiagent with multi-target which states are unknown is studied. In order to obtain the accurate state estimations of targets, a distributed multi-sensor multi-target filtering algorithm based on the cubature Kalman filter scheme and multiple heterogeneous sensors is proposed. Then, the state estimations obtained by the filtering algorithm are used to design a time-varying formation tracking protocol for multiagent, enabling multiagent to form a time-varying formation and track the convex combination of targets. Finally, the effectiveness of the proposed algorithm is illustrated by simulation experiments.
+#        url: false
+
+  - title: 戚佳琳,张政,李清东,董希旺,蒋宏,任章,韩亮,于江龙,化永朝, ”基于PLKF的异质传感器分布式协同探测方法[J]”.战术导弹技术.
+    url: false
+
+  - title: Yu Sun,Jialin Qi ,Zheng Zhang ,Hong Jiang,Xiwang Dong, Qingdong Li, Zhang Ren, ”带有事件触发器的强跟踪容积卡尔曼分布式估计”， International Conference on Guidance, Navigation and Control
+    url: false
+
+#
+#  - title: Jialin Qi, Zheng Zhang, Xiwang Dong, Jianglong Yu, Qingdong Li, Hong Jiang, Zhang Ren,”Time-varying formation tracking control for multi-agent systems using distributed multi-sensor multi-target filtering”
+#    url: false
+#    entries:
+#      - title: on Github
+#        url: https://github.com/abhinavs/moonwalk
+#
+#      - title: originally built for abhinav's homepage
+#        url: https://www.abhinav.co
+#
+#      - title: this list is scalable and can be nested
+#        url: false
+#        entries:
+#          - title: this is nested inside a nested list
+#            url: false
+#
+#          - title: it is easy to use, see _data/home.yml to see how to configure it.
+#            url: false
+#
+

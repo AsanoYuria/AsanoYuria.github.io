@@ -1,0 +1,46 @@
+<script type="text/javascript">
+  window.addEventListener('load', () => {
+    themeChange();
+    changeOverlayColor();
+  });
+
+  const currentTheme = localStorage.getItem('theme') || 'dark';
+  function changeOverlayColor() {
+    let overlay = document.querySelector('.overlay');
+    let currentTheme = document.documentElement.getAttribute('data-theme');
+    if (currentTheme === 'dark') {
+      overlay.style.backgroundColor = 'rgba(40, 37, 53, 0.7)';
+      overlay.style.opacity = 1;
+    } else {
+      overlay.style.backgroundColor = 'rgba(230, 230, 250, 0.55)';
+      overlay.style.opacity = 1;
+    }
+  }
+  changeOverlayColor();
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  
+  function themeChange() {
+    let button = document.querySelector('.theme-toggle');
+
+    button.addEventListener('click', function (e) {
+      let currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        transition();
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      } else {
+        transition();
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      changeOverlayColor();
+    });
+
+    let transition = () => {
+      document.documentElement.classList.add('transition');
+      window.setTimeout(() => {
+        document.documentElement.classList.remove('transition');
+      }, 1000);
+    }
+  }
+</script>
